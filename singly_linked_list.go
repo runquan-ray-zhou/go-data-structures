@@ -30,14 +30,12 @@ func (s *SinglyLinkedList[T]) InsertAfter(val T, prev *SingleLinkNode[T]) {
 	if prev.Next == nil {
 		s.tail = newNode
 		prev.Next = newNode
-		s.size++
 	} else {
 		restOfList := prev.Next
 		newNode.Next = restOfList
 		prev.Next = newNode
-		s.size++
 	}
-
+	s.size++
 }
 
 func (s *SinglyLinkedList[T]) RemoveAfter(prev *SingleLinkNode[T]) {

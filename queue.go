@@ -1,4 +1,4 @@
-package godatastructures
+package main
 
 type QueueInterface[T any] interface {
 	Front() T      // returns first item in queue. O(1)
@@ -14,7 +14,7 @@ type Queue[T any] struct {
 
 // Alternate implementation of a queue using a circular array
 type AlternateQueue[T any] struct {
-	arr []T
+	arr   []T
 	first int
-	last int
+	last  int
 }

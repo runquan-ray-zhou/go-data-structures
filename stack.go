@@ -1,4 +1,4 @@
-package godatastructures
+package main
 
 type StackInterface[T any] interface {
 	Top() T      // returns top item in stack. O(1)
@@ -14,5 +14,5 @@ type Stack[T any] struct {
 
 // Alternate implementation of a stack using an array
 type AlternateStack[T any] struct {
-	arr []T 
+	arr []T
 }

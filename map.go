@@ -1,9 +1,7 @@
-package godatastructures
+package main
 
 import (
-	"encoding/json"
 	"golang.org/x/exp/constraints"
-	"hash/fnv"
 )
 
 type MapInterface[T constraints.Ordered, V any] interface {

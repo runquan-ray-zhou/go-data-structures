@@ -1,4 +1,4 @@
-package godatastructures
+package main
 
 import (
 	"golang.org/x/exp/constraints"

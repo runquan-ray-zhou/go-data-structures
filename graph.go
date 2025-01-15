@@ -1,4 +1,4 @@
-package godatastructures
+package main
 
 import (
 	"golang.org/x/exp/constraints"
@@ -14,7 +14,7 @@ type GraphInterface[T constraints.Ordered] interface {
 }
 
 type Graph[T constraints.Ordered] struct {
-	nodes     map[T]struct{}
+	nodes map[T]struct{}
 	// Using second map as a set; ignore the value
 	// Ensure on removals you use delete func
 	neighbors map[T]map[T]struct{}
@@ -22,7 +22,7 @@ type Graph[T constraints.Ordered] struct {
 
 func NewGraph[T constraints.Ordered]() *Graph[T] {
 	return &Graph[T]{
-		nodes: make(map[T]struct{}),
+		nodes:     make(map[T]struct{}),
 		neighbors: make(map[T]map[T]struct{}),
 	}
 }
@@ -35,7 +35,7 @@ func (g *Graph[T]) Size() int {
 	return len(g.nodes)
 }
 
-func (g *Graph[T]) Insert(key T, val struct{}, neighbors[]T) {
+func (g *Graph[T]) Insert(key T, val struct{}, neighbors []T) {
 	g.nodes[key] = val
 	set := make(map[T]struct{})
 	for _, neighbor := range neighbors {
@@ -48,9 +48,9 @@ func (g *Graph[T]) Insert(key T, val struct{}, neighbors[]T) {
 }
 
 func (g *Graph[T]) Remove(key T) {
-  delete(g.nodes, key)
+	delete(g.nodes, key)
 	neighbors := g.neighbors[key]
-	for  neighbor, _ := range neighbors {
+	for neighbor, _ := range neighbors {
 		delete(g.neighbors[neighbor], key)
 	}
 	delete(g.neighbors, key)

@@ -1,4 +1,4 @@
-package godatastructures
+package main
 
 import (
 	"golang.org/x/exp/constraints"
@@ -15,7 +15,7 @@ type BinaryTreeInterface[T constraints.Ordered] interface {
 	Root() *BinaryTreeNode[T]       // returns node at root of tree. O(1)
 	Insert(key T, val any)          // inserts node with key, val (can be nil), increases size by 1. O(logn)
 	Contains(key T) bool            // checks if tree contains key. O(logn)
-	Lookup(key T) any            	  // returns value for key. O(logn)
+	Lookup(key T) any               // returns value for key. O(logn)
 	Remove(key T)                   // removes node with key, decreases size by 1. O(logn)
 	Empty() bool                    // returns whether tree is empty. O(1)
 	InOrderTraversal() []Pair[T]    // returns keys in tree ordered by processing left, current, right. O(n)

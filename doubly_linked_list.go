@@ -1,4 +1,4 @@
-package godatastructures
+package main
 
 type DoubleLinkNode[T any] struct {
 	Data T

@@ -113,18 +113,15 @@ func (s *DoublyLinkedList[T]) RemoveAtFront() {
 }
 
 func (s *DoublyLinkedList[T]) InsertAtEnd(val T) {
-	newNode := &DoublyLinkedList[T]{Data: val}
-	currNode := s.head
-	if currNode.Next == nil {
-		currNode.Next = newNode
+	newNode := &DoubleLinkNode[T]{Data: val}
+	if s.head == nil {
+		s.head = newNode
+		s.tail = newNode
+	} else {
+		s.tail.Next = newNode
+		newNode.Prev = s.tail
+		s.tail = newNode
 	}
-	for currNode != nil && currNode.Next != nil {
-		if currNode.Next.Next == nil {
-			currNode.Next = newNode
-		}
-		currNode = currNode.Next
-	}
-	s.tail = newNode
 	s.size++
 }
 

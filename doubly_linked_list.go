@@ -102,7 +102,13 @@ func (s *DoublyLinkedList[T]) RemoveAtFront() {
 	if s.head == nil {
 		return
 	}
-	s.head = s.head.Next
+	if s.head == s.tail {
+		s.head = nil
+		s.tail = nil
+	} else {
+		s.head.Next.Prev = nil
+		s.head = s.head.Next
+	}
 	s.size--
 }
 

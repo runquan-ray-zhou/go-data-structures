@@ -86,11 +86,12 @@ func (s *DoublyLinkedList[T]) Remove(node *DoubleLinkNode[T]) {
 }
 
 func (s *DoublyLinkedList[T]) InsertAtFront(val T) {
-	newNode := &DoublyLinkedList[T]{Data: val}
+	newNode := &DoubleLinkNode[T]{Data: val}
 	if s.head == nil {
 		s.head = newNode
 		s.tail = newNode
 	} else {
+		s.head.Prev = newNode
 		newNode.Next = s.head
 		s.head = newNode
 	}

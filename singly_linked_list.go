@@ -54,7 +54,7 @@ func (s *SinglyLinkedList[T]) InsertAtFront(val T) {
 		s.head = newNode
 		s.tail = newNode
 	} else {
-		newNode.Next = s.head.Next
+		newNode.Next = s.head
 		s.head = newNode
 	}
 	s.size++

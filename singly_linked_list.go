@@ -42,6 +42,9 @@ func (s *SinglyLinkedList[T]) RemoveAfter(prev *SingleLinkNode[T]) {
 	if s.head == nil || prev == nil || prev == s.tail {
 		return
 	}
+	if prev.Next == s.tail {
+		s.tail = prev
+	}
 	prev.Next = prev.Next.Next
 	s.size--
 }
@@ -63,46 +66,48 @@ func (s *SinglyLinkedList[T]) RemoveAtFront() {
 		return
 	}
 	s.head = s.head.Next
+	if s.head == nil {
+		s.tail = nil
+	}
 	s.size--
 }
 
 func (s *SinglyLinkedList[T]) InsertAtEnd(val T) {
 	newNode := &SingleLinkNode[T]{Data: val}
-	currNode := s.head
-	if currNode.Next == nil {
-		currNode.Next = newNode
+	if s.head == nil {
+		s.head = newNode
+		s.tail = newNode
+	} else {
+		s.tail.Next = newNode
+		s.tail = newNode
 	}
-	for currNode != nil && currNode.Next != nil {
-		if currNode.Next.Next == nil {
-			currNode.Next = newNode
-		}
-		currNode = currNode.Next
-	}
-	s.tail = newNode
 	s.size++
 }
 
 func (s *SinglyLinkedList[T]) RemoveAtEnd() {
+	if s.head == nil {
+		return
+	}
 	if s.head == s.tail {
 		s.head = nil
+		s.tail = nil
+		s.size--
+		return
 	}
 	currNode := s.head
-	for currNode != nil && currNode.Next != nil {
-		if currNode.Next.Next == nil {
-			currNode.Next = currNode.Next.Next
-		}
+	for currNode != nil {
 		currNode = currNode.Next
 	}
 	s.tail = currNode
 	s.size--
 }
 
-func (s *SinglyLinkedList[T]) Head() SingleLinkNode[T] {
-	return *s.head
+func (s *SinglyLinkedList[T]) Head() *SingleLinkNode[T] {
+	return s.head
 }
 
-func (s *SinglyLinkedList[T]) Tail() SingleLinkNode[T] {
-	return *s.tail
+func (s *SinglyLinkedList[T]) Tail() *SingleLinkNode[T] {
+	return s.tail
 }
 
 func (s *SinglyLinkedList[T]) Empty() bool {

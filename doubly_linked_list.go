@@ -140,12 +140,12 @@ func (s *DoublyLinkedList[T]) RemoveAtEnd() {
 	s.size--
 }
 
-func (s *DoublyLinkedList[T]) Head() DoubleLinkNode[T] {
-	return *s.head
+func (s *DoublyLinkedList[T]) Head() *DoubleLinkNode[T] {
+	return s.head
 }
 
-func (s *DoublyLinkedList[T]) Tail() DoubleLinkNode[T] {
-	return *s.tail
+func (s *DoublyLinkedList[T]) Tail() *DoubleLinkNode[T] {
+	return s.tail
 }
 
 func (s *DoublyLinkedList[T]) Empty() bool {

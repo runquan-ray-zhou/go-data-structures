@@ -1,5 +1,9 @@
 package main
 
+// Input Restricted Queues
+// In Input Restricted Queues, insertion takes place only from the rear end, deletion can take place from both ends.
+// Output Restricted Queues
+// In Output Restricted Queues, the deletion takes place from only the front, however, insertion can take place from both ends.
 type DequeInterface[T any] interface {
 	Front() T        // returns first item in deque. O(1)
 	Back() T         // returns last item in deque. O(1)
@@ -13,4 +17,36 @@ type DequeInterface[T any] interface {
 
 type Deque[T any] struct {
 	list DoublyLinkedListInterface[T]
+}
+
+func (d *Deque[T]) Front() T {
+	return d.list.Head().Data
+}
+
+func (d *Deque[T]) Back() T {
+	return d.list.Tail().Data
+}
+
+func (d *Deque[T]) PushFront(val T) {
+	d.list.InsertAtFront(val)
+}
+
+func (d *Deque[T]) PushBack(val T) {
+	d.list.InsertAtEnd(val)
+}
+
+func (d *Deque[T]) PopFront() {
+	d.list.RemoveAtFront()
+}
+
+func (d *Deque[T]) PopBack() {
+	d.list.RemoveAtEnd()
+}
+
+func (d *Deque[T]) Empty() bool {
+	return d.list.Empty()
+}
+
+func (d *Deque[T]) Size() int {
+	return d.list.Size()
 }

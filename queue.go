@@ -45,20 +45,13 @@ func (aq *AlternateQueue[T]) Front() T {
 }
 
 func (aq *AlternateQueue[T]) Enqueue(val T) {
-	aq.last = aq.last + 1
-	aq.arr = append(aq.arr, val)
-
 }
 
 func (aq *AlternateQueue[T]) Dequeue() {
-	aq.last = aq.last - 1
-	aq.arr = aq.arr[1:]
 }
 
 func (aq *AlternateQueue[T]) Empty() bool {
-	return aq.first == aq.last
 }
 
 func (aq *AlternateQueue[T]) Size() int {
-	return aq.last + 1
 }

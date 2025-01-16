@@ -1,5 +1,6 @@
 package main
 
+// FIFO
 type QueueInterface[T any] interface {
 	Front() T      // returns first item in queue. O(1)
 	Enqueue(val T) // adds val to end of queue, increases size by 1. O(1)
@@ -8,7 +9,7 @@ type QueueInterface[T any] interface {
 	Size() int     // returns number of elements in queue. O(1) or O(n) depending on implementation
 }
 
-type Queue[T any] struct {
+type Queue[T any] struct { //Head of doubly linked list is front of queue and tail is back of queue
 	list SinglyLinkedListInterface[T]
 }
 
@@ -17,4 +18,47 @@ type AlternateQueue[T any] struct {
 	arr   []T
 	first int
 	last  int
+}
+
+func (q *Queue[T]) Front() T {
+	return q.list.Head().Data
+}
+
+func (q *Queue[T]) Enqueue(val T) {
+	q.list.InsertAtEnd(val)
+}
+
+func (q *Queue[T]) Dequeue() {
+	q.list.RemoveAtFront()
+}
+
+func (q *Queue[T]) Empty() bool {
+	return q.list.Empty()
+}
+
+func (q *Queue[T]) Size() int {
+	return q.list.Size()
+}
+
+func (aq *AlternateQueue[T]) Front() T {
+	return aq.arr[aq.first]
+}
+
+func (aq *AlternateQueue[T]) Enqueue(val T) {
+	aq.last = aq.last + 1
+	aq.arr = append(aq.arr, val)
+
+}
+
+func (aq *AlternateQueue[T]) Dequeue() {
+	aq.last = aq.last - 1
+	aq.arr = aq.arr[1:]
+}
+
+func (aq *AlternateQueue[T]) Empty() bool {
+	return aq.first == aq.last
+}
+
+func (aq *AlternateQueue[T]) Size() int {
+	return aq.last + 1
 }

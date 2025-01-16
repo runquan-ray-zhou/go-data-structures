@@ -1,5 +1,6 @@
 package main
 
+// LIFO
 type StackInterface[T any] interface {
 	Top() T      // returns top item in stack. O(1)
 	Push(val T)  // adds val to top of stack, increases size by 1. O(1)

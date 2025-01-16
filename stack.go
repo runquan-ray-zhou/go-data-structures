@@ -12,7 +12,49 @@ type Stack[T any] struct {
 	list SinglyLinkedListInterface[T]
 }
 
+func (s *Stack[T]) Top() T {
+	topOfStack := s.list.Head()
+	return topOfStack.Data
+}
+
+func (s *Stack[T]) Push(val T) {
+	s.list.InsertAtFront(val)
+}
+
+func (s *Stack[T]) Pop() {
+	s.list.RemoveAtFront()
+}
+
+func (s *Stack[T]) Empty() bool {
+	return s.list.Empty()
+}
+
+func (s *Stack[T]) Size() int {
+	return s.list.Size()
+}
+
 // Alternate implementation of a stack using an array
 type AlternateStack[T any] struct {
 	arr []T
+}
+
+func (as *AlternateStack[T]) Top() T {
+	topOfStack := as.arr[len(as.arr)-1]
+	return topOfStack
+}
+
+func (as *AlternateStack[T]) Push(val T) {
+	as.arr = append(as.arr, val)
+}
+
+func (as *AlternateStack[T]) Pop() {
+	as.arr = as.arr[:len(as.arr)-1]
+}
+
+func (as *AlternateStack[T]) Empty() bool {
+	return len(as.arr) == 0
+}
+
+func (as *AlternateStack[T]) Size() int {
+	return len(as.arr)
 }

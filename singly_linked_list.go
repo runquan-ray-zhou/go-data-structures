@@ -25,6 +25,16 @@ type SinglyLinkedList[T any] struct {
 	size int
 }
 
+func NewSinglyLinkedList[T any](initialNode *SingleLinkNode[T]) *SinglyLinkedList[T] {
+	list := &SinglyLinkedList[T]{}
+	if initialNode != nil {
+		list.head = initialNode
+		list.tail = initialNode
+		list.size = 1
+	}
+	return list
+}
+
 func (s *SinglyLinkedList[T]) InsertAfter(val T, prev *SingleLinkNode[T]) {
 	newNode := &SingleLinkNode[T]{Data: val}
 	if prev.Next == nil {

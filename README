@@ -2,6 +2,7 @@ For each data structure, complete the struct so it implements the interface.
 Complete the data structures in the following order:
 
 At a minimum, everyone should complete steps 1-7 before starting at Uber:
+
 1. Singly linked list
 2. Doubly linked list
 3. Stack (wrapper on singly linked list)
@@ -11,20 +12,24 @@ At a minimum, everyone should complete steps 1-7 before starting at Uber:
 7. Queue (using a circular array as the underlying data structure)
 
 The goal is for everyone to complete steps 8-9 before starting at Uber:
+
 8. Binary search tree (partial implementation provided)
 9. Graph (partial implementation provided)
 
 The stretch goal is to complete steps 10-11:
+
 10. Set (binary search tree is a prerequisite)
 11. Map (binary search tree is a prerequisite)
 
 Anyone who still has time (the "super streth" goal) should work on steps 12-13:
+
 12. Heaps (MinHeap and MaxHeap)
 13. Priority queue (heaps are a prerequisite)
 
 A note on testing: Each implementation should be tested, but manual testing (i.e., by writing a print function and verifying the output) is ok; at Uber, we will do a session on unit testing and then spend a week writing real unit test suites.
 
 Setup instructions:
+
 1. Install Go locally on your computer (if you haven't already). Follow the instructions in the official Go docs: https://go.dev/doc/install
 2. Save this (the "Data Structures") folder locally
 3. In a terminal, cd into the folder

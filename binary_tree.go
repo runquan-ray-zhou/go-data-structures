@@ -4,7 +4,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-type BinaryTreeNode[T constraints.Ordered] struct {
+type BinaryTreeNode[T constraints.Ordered] struct { //Ordered is a constraint that permits any ordered type: any type that supports the operators < <= >= >. If future releases of Go add new ordered types, this constraint will be modified to include them.
 	Key   T
 	Value any
 	Left  *BinaryTreeNode[T]

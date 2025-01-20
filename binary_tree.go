@@ -16,6 +16,7 @@ type BinaryTreeInterface[T constraints.Ordered] interface {
 	Insert(key T, val any)          // inserts node with key, val (can be nil), increases size by 1. O(logn)
 	Contains(key T) bool            // checks if tree contains key. O(logn)
 	Lookup(key T) any               // returns value for key. O(logn)
+	Update(key T, val any)          // update key with new value O(logn)
 	Remove(key T)                   // removes node with key, decreases size by 1. O(logn)
 	Empty() bool                    // returns whether tree is empty. O(1)
 	InOrderTraversal() []Pair[T]    // returns keys in tree ordered by processing left, current, right. O(n)
@@ -30,6 +31,10 @@ type BinarySearchTree[T constraints.Ordered] struct {
 
 func NewBinarySearchTree[T constraints.Ordered]() *BinarySearchTree[T] {
 	return &BinarySearchTree[T]{nil}
+}
+
+func (bst *BinarySearchTree[T]) Root() *BinaryTreeNode[T] {
+	return bst.root
 }
 
 func (bst *BinarySearchTree[T]) Insert(key T, val any) {
@@ -56,7 +61,21 @@ func (bst *BinarySearchTree[T]) Insert(key T, val any) {
 	}
 }
 
-func (bst *BinarySearchTree[T]) ValueForKey(key T) any {
+func (bst *BinarySearchTree[T]) Contains(key T) bool {
+	curr := bst.root
+	for curr != nil {
+		if key == curr.Key {
+			return true
+		} else if key < curr.Key {
+			curr = curr.Left
+		} else {
+			curr = curr.Right
+		}
+	}
+	return false
+}
+
+func (bst *BinarySearchTree[T]) Lookup(key T) any {
 	curr := bst.root
 	for curr != nil {
 		if key == curr.Key {
@@ -70,7 +89,7 @@ func (bst *BinarySearchTree[T]) ValueForKey(key T) any {
 	return nil
 }
 
-func (bst *BinarySearchTree[T]) UpdateValueForKey(key T, val any) {
+func (bst *BinarySearchTree[T]) Update(key T, val any) {
 	curr := bst.root
 	for curr.Key != key {
 		if key < curr.Key {
@@ -129,4 +148,109 @@ func (bst *BinarySearchTree[T]) Remove(key T) {
 		curr.Key = newKey
 		curr.Value = newVal
 	}
+}
+
+func (bst *BinarySearchTree[T]) Empty() bool {
+	return bst.root == nil
+}
+
+func (bst *BinarySearchTree[T]) InOrderTraversal() []Pair[T] {
+	// pairs := []Pair[T]{}
+	// if bst.root == nil {
+	// 	return pairs
+	// }
+	// leftTree := &BinarySearchTree[T]{root: bst.root.Left}
+	// rightTree := &BinarySearchTree[T]{root: bst.root.Right}
+	// curr := bst.root
+	// if curr.Left != nil {
+	// 	pairs = append(pairs, leftTree.InOrderTraversal()...)
+	// }
+	// currPair := Pair[T]{Key: curr.Key, Value: curr.Value}
+	// pairs = append(pairs, currPair)
+
+	// if curr.Right != nil {
+	// 	pairs = append(pairs, rightTree.InOrderTraversal()...)
+	// }
+	// return pairs
+	// Below use helper function for more efficiency
+	pairs := []Pair[T]{}
+	var inOrder func(node *BinaryTreeNode[T])
+
+	inOrder = func(node *BinaryTreeNode[T]) {
+		if node == nil {
+			return
+		}
+		inOrder(node.Left)
+		pairs = append(pairs, Pair[T]{Key: node.Key, Value: node.Value})
+		inOrder(node.Right)
+	}
+
+	inOrder(bst.root)
+	return pairs
+}
+
+func (bst *BinarySearchTree[T]) PreOrderTraversal() []Pair[T] {
+	pairs := []Pair[T]{}
+	var preOrder func(node *BinaryTreeNode[T])
+
+	preOrder = func(node *BinaryTreeNode[T]) {
+		if node == nil {
+			return
+		}
+		pairs = append(pairs, Pair[T]{Key: node.Key, Value: node.Value})
+		preOrder(node.Left)
+		preOrder(node.Right)
+	}
+
+	preOrder(bst.root)
+	return pairs
+}
+
+func (bst *BinarySearchTree[T]) PostOrderTraversal() []Pair[T] {
+	pairs := []Pair[T]{}
+	var postOrder func(node *BinaryTreeNode[T])
+
+	postOrder = func(node *BinaryTreeNode[T]) {
+		if node == nil {
+			return
+		}
+		postOrder(node.Left)
+		postOrder(node.Right)
+		pairs = append(pairs, Pair[T]{Key: node.Key, Value: node.Value})
+	}
+
+	postOrder(bst.root)
+	return pairs
+}
+
+func (bst *BinarySearchTree[T]) LevelOrderTraversal() []Pair[T] {
+	pairs := []Pair[T]{}
+
+	if bst.root == nil {
+		return pairs
+	}
+
+	// A queue to keep track of nodes to process
+	queue := []*BinaryTreeNode[T]{bst.root}
+
+	for len(queue) > 0 {
+		// Dequeue the first node from the queue
+		curr := queue[0]
+		queue = queue[1:]
+
+		// Process the current node
+		pairs = append(pairs, Pair[T]{Key: curr.Key, Value: curr.Value})
+
+		// Enqueue the left child if it exists
+		if curr.Left != nil {
+			queue = append(queue, curr.Left)
+		}
+
+		// Enqueue the right child if it exists
+		if curr.Right != nil {
+			queue = append(queue, curr.Right)
+		}
+	}
+
+	return pairs
 }

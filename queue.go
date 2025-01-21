@@ -17,6 +17,10 @@ type Queue[T any] struct { //Head of singly linked list is front of queue and ta
 	list SinglyLinkedListInterface[T]
 }
 
+func NewQueue[T any]() *Queue[T] {
+	return &Queue[T]{list: NewSinglyLinkedList[T](nil)}
+}
+
 // first is the first element enqueued into the array or when the array was instantiated.
 // Alternate implementation of a queue using a circular array
 type AlternateQueue[T any] struct {
@@ -36,6 +40,9 @@ func NewArrayQueue[T any](capacity int) *AlternateQueue[T] {
 }
 
 func (q *Queue[T]) Front() T {
+	if q.list.Empty() {
+		panic("Queue is empty")
+	}
 	return q.list.Head().Data
 }
 

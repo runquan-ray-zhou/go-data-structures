@@ -105,9 +105,10 @@ func (s *SinglyLinkedList[T]) RemoveAtEnd() {
 		return
 	}
 	currNode := s.head
-	for currNode != nil {
+	for currNode.Next != s.tail {
 		currNode = currNode.Next
 	}
+	currNode.Next = nil
 	s.tail = currNode
 	s.size--
 }

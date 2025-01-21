@@ -16,6 +16,63 @@ func main() {
 	graph.Insert(Pair[string]{Key: "Irena", Value: nil}, []string{"Gina"})
 	graph.Insert(Pair[string]{Key: "Elaine", Value: nil}, []string{"Alice", "Derek"})
 
+	/*
+			graph.nodes
+			map[string]struct{}{
+				"Alice":  struct{}{},
+				"Bob":    struct{}{},
+				"Candy":  struct{}{},
+				"Derek":  struct{}{},
+				"Elaine": struct{}{},
+				"Fred":   struct{}{},
+				"Gina":   struct{}{},
+				"Helen":  struct{}{},
+				"Irena":  struct{}{},
+			}
+
+			graph.neighbors
+			map[string]map[string]struct{}{
+		    "Alice": {
+		        "Bob":    struct{}{},
+		        "Candy":  struct{}{},
+		        "Derek":  struct{}{},
+		        "Elaine": struct{}{},
+		    },
+		    "Bob": {
+		        "Fred":   struct{}{},
+		        "Alice":  struct{}{},
+		    },
+		    "Fred": {
+		        "Bob":    struct{}{},
+		        "Helen":  struct{}{},
+		    },
+		    "Helen": {
+		        "Fred":   struct{}{},
+		        "Candy":  struct{}{},
+		    },
+		    "Candy": {
+		        "Alice":  struct{}{},
+		        "Helen":  struct{}{},
+		    },
+		    "Derek": {
+		        "Alice":  struct{}{},
+		        "Elaine": struct{}{},
+		        "Gina":   struct{}{},
+		    },
+		    "Elaine": {
+		        "Alice":  struct{}{},
+		        "Derek":  struct{}{},
+		    },
+		    "Gina": {
+		        "Derek":  struct{}{},
+		        "Irena":  struct{}{},
+		    },
+		    "Irena": {
+		        "Gina":   struct{}{},
+		    },
+		}
+	*/
+
 	fmt.Println("Graph structure:")
 	for node, neighbors := range graph.neighbors {
 		fmt.Printf("%s -> ", node)
@@ -24,6 +81,15 @@ func main() {
 		}
 		fmt.Println()
 	}
+	fmt.Println(graph.Size())
+	fmt.Println(graph.Empty())
+
+	visited := graph.DepthFirstTraversal()
+
+	fmt.Println(visited)
+
+	result := graph.BreadthFirstTraversal()
+	fmt.Println(result)
 
 	// node := &SingleLinkNode[int]{Data: 3}
 	// fmt.Println(node)

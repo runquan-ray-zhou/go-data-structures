@@ -35,16 +35,32 @@ func (g *Graph[T]) Size() int {
 	return len(g.nodes)
 }
 
-func (g *Graph[T]) Insert(key T, val struct{}, neighbors []T) {
-	g.nodes[key] = val
-	set := make(map[T]struct{})
-	for _, neighbor := range neighbors {
-		set[neighbor] = struct{}{}
+func (g *Graph[T]) Insert(pair Pair[T], neighbors []T) {
+	key := pair.Key
+
+	g.nodes[key] = struct{}{}
+
+	if g.neighbors[key] == nil {
+		g.neighbors[key] = make(map[T]struct{})
 	}
-	g.neighbors[key] = set
+
 	for _, neighbor := range neighbors {
-		g.neighbors[neighbor][key] = struct{}{}
+		g.nodes[neighbor] = struct{}{}
+		if g.neighbors[neighbor] == nil {
+			g.neighbors[neighbor] = make(map[T]struct{})
+		}
+		g.neighbors[key][neighbor] = struct{}{} // empty struct type have no fields and takes up zero bytes of memory
+		g.neighbors[neighbor][key] = struct{}{} // great to use to track existence of key without any associated data
 	}
+
+	// set := make(map[T]struct{})
+	// for _, neighbor := range neighbors {
+	// 	set[neighbor] = struct{}{}
+	// }
+	// g.neighbors[key] = set
+	// for _, neighbor := range neighbors {
+	// 	g.neighbors[neighbor][key] = struct{}{}
+	// }
 }
 
 func (g *Graph[T]) Remove(key T) {

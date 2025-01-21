@@ -1,8 +1,6 @@
 package main
 
 import (
-	"sort"
-
 	"golang.org/x/exp/constraints"
 )
 
@@ -74,7 +72,7 @@ func (g *Graph[T]) Remove(key T) {
 	delete(g.neighbors, key)
 }
 
-// did not give starting node. and we need to sort it because of the constraint
+// did not give starting node.
 func (g *Graph[T]) DepthFirstTraversal() []T {
 	visited := make(map[T]struct{})
 	result := []T{}
@@ -88,36 +86,64 @@ func (g *Graph[T]) DepthFirstTraversal() []T {
 		visited[node] = struct{}{}
 		result = append(result, node)
 
-		neighbors := []T{}
 		for neighbor := range g.neighbors[node] {
-			neighbors = append(neighbors, neighbor)
-		}
-
-		sort.Slice(neighbors, func(i, j int) bool {
-			return neighbors[i] < neighbors[j]
-		})
-
-		for _, neighbor := range neighbors {
 			helperDFS(neighbor)
 		}
 	}
-
-	nodes := []T{}
-	for node := range g.nodes {
-		nodes = append(nodes, node)
-	}
-
-	sort.Slice(nodes, func(i, j int) bool {
-		return nodes[i] < nodes[j]
-	})
 
 	for node := range g.nodes {
 		if _, ok := visited[node]; !ok {
 			helperDFS(node)
 		}
 	}
+
 	return result
 }
+
+//sorted version
+// func (g *Graph[T]) DepthFirstTraversal() []T {
+// 	visited := make(map[T]struct{})
+// 	result := []T{}
+
+// 	var helperDFS func(node T)
+// 	helperDFS = func(node T) {
+// 		if _, ok := visited[node]; ok {
+// 			return
+// 		}
+
+// 		visited[node] = struct{}{}
+// 		result = append(result, node)
+
+// 		neighbors := []T{}
+// 		for neighbor := range g.neighbors[node] {
+// 			neighbors = append(neighbors, neighbor)
+// 		}
+
+// 		sort.Slice(neighbors, func(i, j int) bool {
+// 			return neighbors[i] < neighbors[j]
+// 		})
+
+// 		for _, neighbor := range neighbors {
+// 			helperDFS(neighbor)
+// 		}
+// 	}
+
+// 	nodes := []T{}
+// 	for node := range g.nodes {
+// 		nodes = append(nodes, node)
+// 	}
+
+// 	sort.Slice(nodes, func(i, j int) bool {
+// 		return nodes[i] < nodes[j]
+// 	})
+
+// 	for node := range g.nodes {
+// 		if _, ok := visited[node]; !ok {
+// 			helperDFS(node)
+// 		}
+// 	}
+// 	return result
+// }
 
 func (g *Graph[T]) BreadthFirstTraversal() []T {
 	visited := make(map[T]struct{})

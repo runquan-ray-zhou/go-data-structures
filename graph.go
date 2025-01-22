@@ -145,6 +145,7 @@ func (g *Graph[T]) DepthFirstTraversal() []T {
 // 	return result
 // }
 
+// dont use recursion
 func (g *Graph[T]) BreadthFirstTraversal() []T {
 	visited := make(map[T]struct{})
 	result := []T{}
@@ -177,3 +178,69 @@ func (g *Graph[T]) BreadthFirstTraversal() []T {
 	}
 	return result
 }
+
+/*
+undirected - edges, source and destination
+n nodes, max possible number of edges
+n square
+sparse vs dense. the number of edges vs the number of nodes.
+O(N + E) big o notation
+weighted vs weighted
+edges represented by time or distance/strength of connection.
+graph algorithm, distance between nodes.
+weighted vs unweighted
+does a path exits problem
+shortest path
+batching orders
+what is the shortest path to pick up the food.  outsourcing mapping.  uber does the matching part.
+
+unweighted class is the number of edges.
+
+weighted is the sum of the edges.
+
+what is the intuitive way to be represented in a data
+
+every earner is a node
+every city is node
+
+adjacency list/set notation, set is use more often
+map "node"(unique id) -> list/set of "nodes"(unique ids)
+NYC -> (New haven, hartford, baltimore, dc, boston)
+new haven -> (new york , hartford)
+bermuda -> ()
+
+weighted version, store the edge to the node
+
+
+adjacency matrix
+
+recursive branches
+
+if there is a single cycle the graph will be acyclic.
+
+searching for something
+dfs, we going to see something very far away before we see something closer
+
+
+mechanics of traversing a graph
+use the information from edges choose where to go
+greedy heuristic algorithm
+
+use the weight of the edges to traverse in a smart
+use a matrix
+
+to populate
+
+algorithm
+
+Dijkstra's algorithm
+A* algorithm
+Bellman–Ford algorithm
+Floyd–Warshall algorithm
+
+graphs
+how many sources and destination
+
+anary graph
+
+*/

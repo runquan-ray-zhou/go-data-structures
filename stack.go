@@ -13,9 +13,14 @@ type Stack[T any] struct {
 	list SinglyLinkedListInterface[T]
 }
 
+func NewStack[T any]() *Stack[T] {
+	return &Stack[T]{
+		list: NewSinglyLinkedList[T](nil),
+	}
+}
+
 func (s *Stack[T]) Top() T {
-	topOfStack := s.list.Head()
-	return topOfStack.Data
+	return s.list.Head().Data
 }
 
 func (s *Stack[T]) Push(val T) {
@@ -23,6 +28,9 @@ func (s *Stack[T]) Push(val T) {
 }
 
 func (s *Stack[T]) Pop() {
+	if s.list.Empty() {
+		return
+	}
 	s.list.RemoveAtFront()
 }
 
@@ -39,9 +47,14 @@ type AlternateStack[T any] struct {
 	arr []T
 }
 
+func NewAlternateStack[T any](initialCapacity int) *AlternateStack[T] {
+	return &AlternateStack[T]{
+		arr: make([]T, 0, initialCapacity),
+	}
+}
+
 func (as *AlternateStack[T]) Top() T {
-	topOfStack := as.arr[len(as.arr)-1]
-	return topOfStack
+	return as.arr[len(as.arr)-1]
 }
 
 func (as *AlternateStack[T]) Push(val T) {
@@ -49,6 +62,9 @@ func (as *AlternateStack[T]) Push(val T) {
 }
 
 func (as *AlternateStack[T]) Pop() {
+	if len(as.arr) == 0 {
+		return
+	}
 	as.arr = as.arr[:len(as.arr)-1]
 }
 

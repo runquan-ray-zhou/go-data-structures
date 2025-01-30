@@ -36,20 +36,28 @@ func NewSinglyLinkedList[T any](initialNode *SingleLinkNode[T]) *SinglyLinkedLis
 }
 
 func (s *SinglyLinkedList[T]) InsertAfter(val T, prev *SingleLinkNode[T]) {
-	newNode := &SingleLinkNode[T]{Data: val}
-	if prev.Next == nil {
+	if prev == nil { //Check for nil before insert
+		return //Prevent nil dereference
+	}
+	// newNode := &SingleLinkNode[T]{Data: val}
+	// if prev.Next == nil {
+	// 	s.tail = newNode
+	// 	prev.Next = newNode
+	// } else { // Unnecessary else because pre.Next is being set in both branches of it
+	// 	restOfList := prev.Next
+	// 	newNode.Next = restOfList
+	// 	prev.Next = newNode
+	// }
+	newNode := &SingleLinkNode[T]{Data: val, Next: prev.Next}
+	prev.Next = newNode
+	if prev == s.tail {
 		s.tail = newNode
-		prev.Next = newNode
-	} else {
-		restOfList := prev.Next
-		newNode.Next = restOfList
-		prev.Next = newNode
 	}
 	s.size++
 }
 
 func (s *SinglyLinkedList[T]) RemoveAfter(prev *SingleLinkNode[T]) {
-	if s.head == nil || prev == nil || prev == s.tail {
+	if s.head == nil || prev == nil || prev.Next == nil {
 		return
 	}
 	if prev.Next == s.tail {
@@ -88,7 +96,9 @@ func (s *SinglyLinkedList[T]) InsertAtEnd(val T) {
 		s.head = newNode
 		s.tail = newNode
 	} else {
-		s.tail.Next = newNode
+		if s.tail != nil {
+			s.tail.Next = newNode
+		}
 		s.tail = newNode
 	}
 	s.size++

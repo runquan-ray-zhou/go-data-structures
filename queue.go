@@ -41,7 +41,7 @@ func NewArrayQueue[T any](capacity int) *AlternateQueue[T] {
 
 func (q *Queue[T]) Front() T {
 	if q.list.Empty() {
-		panic("Queue is empty")
+		fmt.Println("Queue is empty")
 	}
 	return q.list.Head().Data
 }

@@ -32,9 +32,6 @@ func (d *Deque[T]) PushFront(val T) {
 }
 
 func (d *Deque[T]) PushBack(val T) {
-	if d.list.Empty() {
-		return
-	}
 	d.list.InsertAtEnd(val)
 }
 

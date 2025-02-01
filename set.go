@@ -21,3 +21,14 @@ type Set[T constraints.Ordered] struct {
 	maxFill float32 // value in (0, 1] indicating the maximum allowable ratio of elements to arr before arr is resized
 	size    int
 }
+
+func (s *Set[T]) Empty() bool {
+	return s.size == 0
+}
+
+func (s *Set[T]) Size() int {
+	if s.Empty() {
+		return 0
+	}
+	return s.size
+}

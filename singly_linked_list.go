@@ -25,14 +25,29 @@ type SinglyLinkedList[T any] struct {
 	size int
 }
 
-func NewSinglyLinkedList[T any]() *SinglyLinkedList[T] {
-	return &SinglyLinkedList[T]{}
+func NewSinglyLinkedList[T any](initialNode *SingleLinkNode[T]) *SinglyLinkedList[T] {
+	list := &SinglyLinkedList[T]{}
+	if initialNode != nil {
+		list.head = initialNode
+		list.tail = initialNode
+		list.size = 1
+	}
+	return list
 }
 
 func (s *SinglyLinkedList[T]) InsertAfter(val T, prev *SingleLinkNode[T]) {
-	if prev == nil {
-		return
+	if prev == nil { //Check for nil before insert
+		return //Prevent nil dereference
 	}
+	// newNode := &SingleLinkNode[T]{Data: val}
+	// if prev.Next == nil {
+	// 	s.tail = newNode
+	// 	prev.Next = newNode
+	// } else { // Unnecessary else because pre.Next is being set in both branches of it
+	// 	restOfList := prev.Next
+	// 	newNode.Next = restOfList
+	// 	prev.Next = newNode
+	// }
 	newNode := &SingleLinkNode[T]{Data: val, Next: prev.Next}
 	prev.Next = newNode
 	if prev == s.tail {

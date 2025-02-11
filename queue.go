@@ -18,7 +18,7 @@ type Queue[T any] struct { //Head of singly linked list is front of queue and ta
 }
 
 func NewQueue[T any]() *Queue[T] {
-	return &Queue[T]{list: NewSinglyLinkedList[T]()}
+	return &Queue[T]{list: NewSinglyLinkedList[T](nil)}
 }
 
 // first is the first element enqueued into the array or when the array was instantiated.

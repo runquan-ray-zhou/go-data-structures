@@ -1,4 +1,4 @@
-package priorityqueue
+package main
 
 import (
 	"golang.org/x/exp/constraints"

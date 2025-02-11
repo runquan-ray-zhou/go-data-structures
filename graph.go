@@ -1,4 +1,4 @@
-package graph
+package main
 
 import (
 	"golang.org/x/exp/constraints"

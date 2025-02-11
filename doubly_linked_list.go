@@ -1,4 +1,4 @@
-package doublylinkedlist
+package main
 
 type DoubleLinkNode[T any] struct {
 	Data T

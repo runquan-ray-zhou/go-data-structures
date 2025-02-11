@@ -1,4 +1,4 @@
-package deque
+package main
 
 // Input Restricted Queues
 // In Input Restricted Queues, insertion takes place only from the rear end, deletion can take place from both ends.

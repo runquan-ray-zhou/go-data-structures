@@ -1,4 +1,4 @@
-package binarytree
+package main
 
 import (
 	"golang.org/x/exp/constraints"

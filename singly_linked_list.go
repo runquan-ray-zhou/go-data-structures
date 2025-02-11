@@ -1,4 +1,4 @@
-package singlylinkedlist
+package main
 
 type SingleLinkNode[T any] struct {
 	Data T

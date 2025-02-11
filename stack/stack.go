@@ -1,4 +1,4 @@
-package main
+package stack
 
 // LIFO
 type StackInterface[T any] interface {

@@ -33,6 +33,20 @@ func (s *SinglyLinkedList[T]) InsertAfter(val T, prev *SingleLinkNode[T]) {
 	if prev == nil {
 		return
 	}
+
+	current := s.head
+	found := false
+	for current != nil {
+		if current == prev {
+			found = true
+			break
+		}
+		current = current.Next
+	}
+	if !found {
+		return
+	}
+
 	newNode := &SingleLinkNode[T]{Data: val, Next: prev.Next}
 	prev.Next = newNode
 	if prev == s.tail {

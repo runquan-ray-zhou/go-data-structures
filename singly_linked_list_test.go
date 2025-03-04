@@ -17,7 +17,7 @@ func TestNewSinglyLinkedList(t *testing.T) {
 
 		assert.Nil(t, list.head)
 		assert.Nil(t, list.tail)
-		assert.Empty(t, list.size)
+		assert.Equal(t, 0, list.size)
 		assert.True(t, list.Empty())
 	})
 
@@ -664,7 +664,7 @@ func TestSinglyLinkedList_Head(t *testing.T) {
 
 func TestSinglyLinkedList_Tail(t *testing.T) {
 
-	t.Run("Return nil when tail is nil for single node linked list", func(t *testing.T) {
+	t.Run("Return nil when tail is nil for an empty list", func(t *testing.T) {
 		list := NewSinglyLinkedList[int]()
 
 		listTail := list.Tail()
@@ -716,9 +716,36 @@ func TestSinglyLinkedList_Empty(t *testing.T) {
 
 		assert.Empty(t, list)
 		assert.Equal(t, 0, list.size)
+		assert.Nil(t, list.head)
 	})
 
-	// t.Run("Return ")
+	t.Run("Return true for empty list", func(t *testing.T) {
+		list := NewSinglyLinkedList[int]()
+
+		list.InsertAtFront(10)
+		list.RemoveAtEnd()
+		isEmpty := list.Empty()
+
+		assert.True(t, isEmpty)
+		assert.Empty(t, list)
+		assert.Equal(t, 0, list.size)
+		assert.Nil(t, list.head)
+	})
+
+	t.Run("Return false for non empty list", func(t *testing.T) {
+		list := NewSinglyLinkedList[int]()
+
+		list.InsertAtFront(10)
+		list.RemoveAtEnd()
+		list.InsertAtEnd(20)
+		isEmpty := list.Empty()
+
+		assert.NotEmpty(t, list)
+		assert.Equal(t, 1, list.size)
+		assert.False(t, isEmpty)
+		assert.NotNil(t, list.head)
+		assert.Equal(t, 20, list.head.Data)
+	})
 
 }
 
@@ -728,4 +755,46 @@ func TestSinglyLinkedList_Empty(t *testing.T) {
 
 func TestSinglyLinkedList_Size(t *testing.T) {
 
+	t.Run("Return correct size", func(t *testing.T) {
+		list := NewSinglyLinkedList[int]()
+
+		list.InsertAtFront(10)
+		list.InsertAtEnd(20)
+		listSize := list.Size()
+
+		assert.Equal(t, 2, listSize)
+		assert.NotEmpty(t, list)
+		assert.NotNil(t, list.tail)
+		assert.Equal(t, 20, list.tail.Data)
+	})
+
+	t.Run("Return size zero for empty list", func(t *testing.T) {
+		list := NewSinglyLinkedList[int]()
+
+		list.InsertAtFront(10)
+		list.InsertAtEnd(20)
+		list.RemoveAtFront()
+		list.RemoveAtEnd()
+		listSize := list.Size()
+
+		assert.Equal(t, 0, listSize)
+		assert.Empty(t, list)
+		assert.Nil(t, list.head)
+		assert.Empty(t, list.tail)
+	})
+
+	t.Run("Size updates correctly after removals", func(t *testing.T) {
+		list := NewSinglyLinkedList[int]()
+
+		list.InsertAtFront(10)
+		list.InsertAtEnd(20)
+		listSizeBefore := list.Size()
+		list.RemoveAtFront()
+		list.RemoveAtEnd()
+		listSizeAfter := list.Size()
+
+		assert.Equal(t, 2, listSizeBefore)
+		assert.Equal(t, 0, listSizeAfter)
+		assert.Equal(t, 0, list.size)
+	})
 }
